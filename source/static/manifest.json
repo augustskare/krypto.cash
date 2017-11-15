@@ -1,0 +1,43 @@
+{  
+  "name": "Krypto.cash",  
+  "short_name": "Krypto",  
+  "description": "Find out how your cryptocurrency investments is doing",
+  "icons": [
+    {
+      "src": "/icons/128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/icons/144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "/icons/152.png",
+      "type": "image/png",
+      "sizes": "152x152"
+    },
+    {
+      "src": "/icons/192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/256.png",
+      "type": "image/png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "/icons/512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",  
+  "background_color": "#FFF",
+  "theme_color": "#FFF", 
+  "display": "standalone",  
+  "orientation": "portrait-primary",
+  "categories": "finance"
+}

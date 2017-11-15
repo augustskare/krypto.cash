@@ -1,0 +1,74 @@
+button, input[type="submit"] {
+  -webkit-appearance: button;
+}
+
+.button {
+  font-size: 1em;
+  font-family: inherit;
+  font-weight: inherit;
+  line-height: 1;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  display: inline-block;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.button--delete {
+  opacity: .4;
+  width: .9rem;
+  height: .9rem;
+  transform: rotate(45deg);
+}
+
+.button--text {
+  text-transform: inherit;
+  letter-spacing: inherit;
+}
+
+.button--default {
+  border-radius: .25rem;
+  padding: .875rem 1.125rem;
+}
+
+.button--default:disabled {
+  opacity: .4;
+}
+
+.button--main {
+  color: #FFF;
+  background-color: #CE00E8;
+}
+
+.button--outline {
+  color: rgba(83,66,98, .4);
+  border: 1px solid rgba(83,66,98, .1);
+}
+
+.button--outline :hover {
+  color: rgb(83,66,98);
+}
+
+.button-add {
+  background-color: #CE00E8;
+  fill: #FFF;
+  border-radius: 100%;
+  padding: .8rem;
+  width: 3.25rem;
+  height: 3.25rem;
+  margin-right: 1.25rem;
+  display: inline-block;
+  float: right;
+  position: sticky;
+  bottom: 1.25rem;
+  right: 0;
+}
+
+@media (min-width: 34.375em) {
+  .button-add {
+    margin-right: 0;
+  }
+}
