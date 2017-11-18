@@ -6,6 +6,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env) => {
   const ENV = (env && env.env) || 'dev';
@@ -124,6 +125,9 @@ module.exports = (env) => {
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.HashedModuleIdsPlugin(),
       new webpack.NamedModulesPlugin(),
+      new UglifyJSPlugin({
+        sourceMap: true
+      })
     ] : [
       new webpack.HotModuleReplacementPlugin(),
     ])

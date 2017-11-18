@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-dev-server",
-    "build": "webpack -p --progress --env.env=prod",
+    "build": "webpack --progress --env.env=prod",
     "deploy": "yarn build && firebase deploy"
   },
   "devDependencies": {
@@ -22,6 +22,7 @@
     "html-webpack-plugin": "^2.30.1",
     "serviceworker-webpack-plugin": "^0.2.3",
     "style-loader": "^0.19.0",
+    "uglifyjs-webpack-plugin": "^1.0.1",
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
   },
