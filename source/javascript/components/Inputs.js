@@ -1,16 +1,16 @@
 import {h} from 'preact';
 
 const Input = ({label, id, ...props}) => (
-  <div class="input">
+  <div class="number-input">
     <label class="visuallyhidden" for={id}>{label}</label>
-    <input class="input__field" id={id} name={id} placeholder={label} type="number" {...props} step="any" />
+    <input class="number-input__field input" id={id} name={id} placeholder={label} type="number" {...props} step="any" />
   </div>
 )
 
 const Select = ({label, name, children, ...props}) => (
   <div class="select input__aside">
     <label class="visuallyhidden" for={name}>{label}</label>
-    <select class="select__field" name={name} id={name} {...props}>
+    <select class="select__field input" name={name} id={name} {...props}>
       {children}
     </select>
     <svg class="select__icon" width="10" height="6" viewBox="0 0 10 6" xmlns="http://www.w3.org/2000/svg">

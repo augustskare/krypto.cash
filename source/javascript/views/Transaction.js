@@ -59,7 +59,7 @@ class Transaction extends Component {
           
           <div class="input-group">
             <Input label="Purchase fee" id="fee" value={state.fee} onChange={this.handleChange} />
-            <span class="input__aside">%</span>
+            <span class="input__aside input">%</span>
           </div>
           <div class="input-group">
             <Input label="Amount" id="amount" value={state.amount} onChange={this.handleChange} required />
@@ -71,7 +71,7 @@ class Transaction extends Component {
           </div>
     
           <div class="grid">
-            <a href="/" class="button button--default button--outline">Back</a>
+            <span />
             <input class="button button--default button--main" disabled={state.loading} type="submit" value="Add transaction"/>
           </div>
         </form>
