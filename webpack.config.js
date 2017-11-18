@@ -101,6 +101,9 @@ module.exports = (env) => {
         name: 'vendor',
         minChunks: Infinity,
       }),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: 'runtime'
+      }),
       new CopyWebpackPlugin([{ from: 'static' }]),
       new ServiceWorkerWebpackPlugin({
         entry: './javascript/sw.js',
