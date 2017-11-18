@@ -1,3 +1,4 @@
+const pkg = require('./package.json');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -103,7 +104,14 @@ module.exports = (env) => {
       new CopyWebpackPlugin([{ from: 'static' }]),
       new ServiceWorkerWebpackPlugin({
         entry: './javascript/sw.js',
-        excludes: ['*.json', '*.map', 'transaction.js', 'index.html', '**/*.png', '**/*.ico'],
+        excludes: ['*.json', '*.map', 'transaction.*.js', 'index.html', '**/*.png', '**/*.ico'],
+        transformOptions: (serviceWorkerOption) => {
+          const {assets} = serviceWorkerOption;
+          return {
+            version: pkg.version,
+            assets,
+          };
+        }
       }),
       new webpack.DefinePlugin({
         PRODUCTION: JSON.stringify(ENV==='prod'),

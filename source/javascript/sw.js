@@ -1,5 +1,4 @@
-const VERSION = 'KRYPTO-1';
-
+const VERSION = `KRYPTO-${serviceWorkerOption.version}`;
 let assets = serviceWorkerOption.assets;
 assets.push('/');
 
