@@ -47,7 +47,11 @@ class db {
       this.getItems()
     ]).then(resp => {
       const [rates, nativeCurrency, wallet] = resp;
-      return {rates, nativeCurrency, wallet};
+      return {
+        rates: rates || {}, 
+        nativeCurrency: nativeCurrency || undefined, 
+        wallet: wallet || []
+      };
     });
   }
 

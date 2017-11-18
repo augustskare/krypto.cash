@@ -10,16 +10,13 @@ const store = {
   },
 
   init() {
-    const data = dbStore.initalGet();
-    const rates = getRates();
-
-    data.then(state => {
-      this.state = state;
+    dbStore.initalGet().then(state => {
+      this.state = Object.assign({}, this.state, state);
       this._update();
-    });
-    rates.then(rates => {
-      this.state.rates = rates;
-      this._update();
+      ratesService.get().then(rates => {
+        this.state.rates = rates;
+        this._update();
+      })
     });
   },
     
@@ -56,16 +53,18 @@ const store = {
   },
 }
 
-const getRates = () => {
-  const base = 'https://api.coinbase.com/v2/exchange-rates?currency=';
+const ratesService = {
+  url: 'https://api.coinbase.com/v2/exchange-rates?currency=',
 
-  return Promise.all([ 
-    fetch(`${base}BTC`), fetch(`${base}ETH`), fetch(`${base}LTC`) 
-  ]).then(resp => Promise.all(resp.map(r => r.json()))).then(resp => {
-    const rates = { timestamp: new Date() };
-    resp.forEach(({data}) => rates[data.currency] = data.rates);
-    return rates;
-  });
+  get() {
+    return Promise.all([ 
+      fetch(`${this.url}BTC`), fetch(`${this.url}ETH`), fetch(`${this.url}LTC`) 
+    ]).then(resp => Promise.all(resp.map(r => r.json()))).then(resp => {
+      const rates = { timestamp: new Date() };
+      resp.forEach(({data}) => rates[data.currency] = data.rates);
+      return dbStore.setExtra('rates', rates).then(() => rates);
+    });
+  }
 }
 
 export default store;
