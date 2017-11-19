@@ -10,6 +10,7 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = (env) => {
   const ENV = (env && env.env) || 'dev';
+  const VERSION = pkg.version;
 
   return {
     context: path.resolve(__dirname, "source"),
@@ -112,13 +113,14 @@ module.exports = (env) => {
         transformOptions: (serviceWorkerOption) => {
           const {assets} = serviceWorkerOption;
           return {
-            version: pkg.version,
+            version: VERSION,
             assets,
           };
         }
       }),
       new webpack.DefinePlugin({
         PRODUCTION: JSON.stringify(ENV==='prod'),
+        VERSION: JSON.stringify(VERSION),
       }),
       new CleanWebpackPlugin(['public'])
     ]).concat(ENV==='prod' ? [
