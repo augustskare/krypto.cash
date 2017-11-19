@@ -17,8 +17,8 @@ addEventListener('fetch', event => {
   const request = event.request;
   const url = new URL(request.url);
 
-  if (url.host === 'api.coinbase.com') { return }
-
+  if (url.host !== location.host) { return }
+  
   event.respondWith(
     caches.match(request).then(cached => {
       if (cached) { return cached }
@@ -28,5 +28,5 @@ addEventListener('fetch', event => {
         return resp;
       }));
     })
-  )
+  );
 }); 
