@@ -1,9 +1,6 @@
 const VERSION = `KRYPTO-${serviceWorkerOption.version}`;
-let assets = serviceWorkerOption.assets;
-assets.push('/');
 
 addEventListener('install', event => {
-  event.waitUntil(caches.open(VERSION).then(cache => cache.addAll[assets]));
   skipWaiting();
 });
 
