@@ -11,6 +11,16 @@ class App extends Component {
   componentDidMount() {
     store.subscribe(state => this.setState(state));
     store.init();
+
+    this._persistStorage();
+  }
+
+  _persistStorage() {
+    if (navigator.storage && navigator.storage.persist) {
+      navigator.storage.persisted().then(persistent => {
+        if (!persistent) { navigator.storage.persist() }
+      });
+    }
   }
 
   render(props, state) {
