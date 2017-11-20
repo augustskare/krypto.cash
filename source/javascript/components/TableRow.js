@@ -18,7 +18,7 @@ const TableRow = ({item, nativeCurrency, rates}) => {
 
   return (
     <tr class="table-body__row" key={item.id}>
-      <td class="table__first table-body__item">{bought ? '+' : '-'}{item.amount} {item.currency}</td>
+      <td class="table__first table-body__item">{bought ? '+' : '-'}{item.amount.toFixed(3)} {item.currency}</td>
       <td class="table-body__item">{ currencyFormatter(item.purchasePrice, nativeCurrency) }</td>
       <td class="table-body__item">{ perf }</td>
       <td class="table__last table-body__item">
