@@ -24,6 +24,7 @@ class Transaction extends Component {
     event.preventDefault();
 
     const data = Object.assign({}, this.state);
+    data.nativeCurrency = this.props.nativeCurrency || data.nativeCurrency;
     data.fee = parseFloat(data.fee || 0) / 100;
     data.amount = parseFloat(data.amount);
     data.price = parseFloat(data.price);
