@@ -10,7 +10,7 @@
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid rgba(83,66,98,.1);
+  border-bottom: 1px solid rgba(66,66,66,.1);
   border-radius: 0;
   margin: 0;
   padding-top: .625rem;
@@ -19,7 +19,7 @@
 }
 .input:focus {
   outline: 0;
-  border-bottom-color: rgba(83,66,98, .5);
+  border-bottom-color: rgba(66,66,66, .5);
 }
 
 .number-input {
@@ -37,12 +37,12 @@
 }
 
 .number-input__field::placeholder {
-  color: rgba(83,66,98, .75);
+  color: rgba(66,66,66, .75);
 }
 
 .input__aside {
   font-size: 1rem;
-  color: rgba(83,66,98, .4);
+  color: rgba(66,66,66, .4);
 }
 
 .select__field {
@@ -73,7 +73,7 @@
 }
 
 .switch {
-  border: 1px solid rgba(83,66,98, .2);
+  border: 1px solid rgba(66,66,66, .2);
   border-radius: 100px;
   display: flex;
   width: 2rem;
@@ -86,7 +86,7 @@
 }
 
 .switch__indicator {
-  background-color: rgb(83,66,98);
+  background-color: rgb(66,66,66);
   border-radius: 100%;
   width: .5rem;
   height: .5rem;

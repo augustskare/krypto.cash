@@ -4,7 +4,7 @@
   padding-right: 1.25rem;
   padding-bottom: 1rem;
   margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
   white-space: nowrap;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
@@ -16,7 +16,7 @@
 .card {
   font-size: 1rem;
   text-align: center;
-  border: 1px solid rgba(83,66,98, .2);
+  border: 1px solid rgba(66,66,66, .2);
   border-radius: 6px;
   padding-top: 44.7%;
   display: inline-block;

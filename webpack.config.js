@@ -75,6 +75,15 @@ module.exports = (env) => {
             ]
           })
         },
+        {
+          test: /\.(woff|woff2)$/,
+          use: [{
+            loader: 'file-loader',
+            options: {
+              name: '[name].[ext]',
+            },
+          }]
+        },
       ]
     },
     devServer: {
@@ -91,7 +100,7 @@ module.exports = (env) => {
     plugins: ([
       new HtmlWebpackPlugin({
         template: path.join(__dirname, 'source/index.html'),
-        minify: { collapseWhitespace: true },
+        minify: { collapseWhitespace: false },
         excludeChunks: ['sw'],
       }),
       new ExtractTextPlugin({
@@ -122,11 +131,11 @@ module.exports = (env) => {
         PRODUCTION: JSON.stringify(ENV==='prod'),
         VERSION: JSON.stringify(VERSION),
       }),
-      new CleanWebpackPlugin(['public'])
+      new CleanWebpackPlugin(['public']),
+      new webpack.NamedModulesPlugin(),
     ]).concat(ENV==='prod' ? [
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.HashedModuleIdsPlugin(),
-      new webpack.NamedModulesPlugin(),
       new UglifyJSPlugin({
         sourceMap: true
       })

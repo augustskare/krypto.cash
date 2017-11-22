@@ -2,7 +2,8 @@
   text-align: left;
   border-collapse: collapse;
   border-spacing: 0;
-  margin-bottom: 1.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
   width: 100%;
 }
 
@@ -20,14 +21,14 @@
   padding-top: 1rem;
   padding-bottom: 1rem;
   position: relative;
-  border-bottom: 1px solid rgba(83,66,98, .1);
+  border-bottom: 1px solid rgba(66,66,66, .1);
 }
 
 .table-header__item {
-  font-weight: inherit;
-  background-color: rgba(83,66,98, .02);
-  border-top: 1px solid rgba(83,66,98, .1);
-  border-bottom: 1px solid rgba(83,66,98, .1);
+  font-weight: 500;
+  background-color: rgba(66,66,66, .02);
+  border-top: 1px solid rgba(66,66,66, .1);
+  border-bottom: 1px solid rgba(66,66,66, .1);
   padding-top: .625rem;
   padding-bottom: .625rem;
   position: relative;
@@ -35,7 +36,7 @@
 
 @media (min-width: 34.375em) {
   .table { 
-    border-left: 1px solid rgba(83,66,98, .1);
-    border-right: 1px solid rgba(83,66,98, .1);
+    border-left: 1px solid rgba(66,66,66, .1);
+    border-right: 1px solid rgba(66,66,66, .1);
   }
 }
