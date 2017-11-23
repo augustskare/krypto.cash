@@ -130,6 +130,7 @@ module.exports = (env) => {
       new webpack.DefinePlugin({
         PRODUCTION: JSON.stringify(ENV==='prod'),
         VERSION: JSON.stringify(VERSION),
+        STRIPE_API_KEY: JSON.stringify(ENV === 'prod' ? 'pk_live_NLjdwuBQDHVBWxp2vFkU4R3q' : 'pk_test_2V6L1LQDF85u3yQsLSQ9f69z'),
       }),
       new CleanWebpackPlugin(['public']),
       new webpack.NamedModulesPlugin(),

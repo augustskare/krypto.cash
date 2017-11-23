@@ -27,22 +27,23 @@ h1,h2,h3 {
 }
 
 .text {
-  line-height: 1.3;
   text-align: center;
   max-width: 20rem;
   margin: 2rem auto;
 }
 
-.text a {
+p:not(:last-of-type) {
+  margin-bottom: 1em;
+}
+
+.link {
   color: #FF3A35;
   text-decoration: underline;
 }
 
-.text a:hover, .text a:focus {
+.link a:hover, .link a:focus {
   text-decoration: none;
 }
-
-
 
 .small {
   font-size: .75rem;

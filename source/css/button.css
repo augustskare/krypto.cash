@@ -41,4 +41,5 @@ button, input[type="submit"] {
 .button--main {
   color: #FFF;
   background-color: #FF3A35;
+  margin-top: 1.25rem;
 }

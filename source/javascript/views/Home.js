@@ -6,6 +6,7 @@ import {dateFormatter} from '../utils/formatter';
 import {getValues} from '../utils/utils';
 
 const navItems = [
+  { title: 'About', href: '/about' },
   { title: 'Add transaction', href: '/transaction' },
 ];
 
@@ -40,7 +41,7 @@ const Home = (props) => {
             </tbody>
           </table>
         </div>
-      ) : <p class="text">How is your cryptocurrency investments doing? <a href="/transaction">Add yours</a>, and find out.</p> }
+      ) : <p class="text">How is your cryptocurrency investments doing? <a class="link" href="/transaction">Add yours</a>, and find out.</p> }
 
       <nav class="navigation">
         <ul class="navigation__list">
