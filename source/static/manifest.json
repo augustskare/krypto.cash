@@ -1,7 +1,7 @@
 {  
   "name": "Krypto.cash",  
   "short_name": "Krypto",  
-  "description": "Find out how your cryptocurrency investments is doing",
+  "description": "Helps you figure out how your cryptocurrency investments are actually doing",
   "icons": [
     {
       "src": "/icons/128.png",

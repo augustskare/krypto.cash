@@ -38,14 +38,10 @@ class About extends Component {
   render(props, state) {
     return (
       <div class="content">
-        <p>
-          Krypto.cash is free tool that helps you find out how your cryptocurrency investments is doing. Made by <a class="link" href="https://augustskare.no">August Skare</a> and <a class="link" href="http://www.kristianhjelle.com">Kristian Hjelle</a>.
-        </p>
-        <p>
-          Your data is not stored on any server, only on you’r device. The code is open sourced and availble on <a class="link" href="https://github.com/augustskare/krypto.cash">GitHub</a>.
-        </p>
-
-        <p>Like using this service? Buy us a coffee!</p>
+        <p>Krypto.cash is a free tool that helps you figure out how your cryptocurrency investments are actually doing. Made by <a class="link" rel="noopener" href="https://augustskare.no">August Skare</a> and <a class="link" rel="noopener" href="http://www.kristianhjelle.com">Kristian Hjelle</a>.</p>
+        <p>The data you enter in Krypto.cash is only stored on your device.</p>
+        <p>We've open sourced the code for this project on <a class="link" rel="noopener" href="https://github.com/augustskare/krypto.cash">GitHub</a>.</p>
+        <p>Enjoy using this service? Buy us a coffee!</p>
         <button class="button button--main button--default" type="button" disabled={state.disabledButton} onClick={this.handlePayment}>Donate $2</button>
       </div>
     )
