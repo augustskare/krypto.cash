@@ -1,0 +1,6 @@
+.notice {
+  line-height: 1;
+  background-color: rgba(66,66,66, .1);
+  padding: .5rem .4rem .4rem;
+  margin-bottom: 1rem;
+}

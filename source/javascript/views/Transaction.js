@@ -17,7 +17,7 @@ class Transaction extends Component {
   }
 
   handleChange({target}) {
-    this.setState({ [target.name]: target.value });
+    this.setState({ [target.name]: target.value, added: false });
   }
 
   handleSubmit(event) {
@@ -31,12 +31,14 @@ class Transaction extends Component {
     data.purchasePrice = (data.price - (data.price * data.fee)) / data.amount;
 
     store.add(data);
-    this.setState({price: null, fee: null, amount: null})
+    this.setState({price: null, fee: null, amount: null, added: true });
   }
   
   render(props, state) {
     return (
       <div class="content">
+        { state.added ? <p class="notice">Item added</p> : null }
+
         <form class="form" onSubmit={this.handleSubmit}>
           <div class="heading grid">
             <header>
