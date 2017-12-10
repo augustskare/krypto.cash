@@ -10,6 +10,10 @@ const navItems = [
   { title: 'Add transaction', href: '/transaction' },
 ];
 
+if (typeof(RTCPeerConnection) === 'function') {
+  navItems.splice(1, 0, { title: 'Data sync', href: '/sync' });
+}
+
 const Home = (props) => {
   const cards = getValues(props);
 

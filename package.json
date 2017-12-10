@@ -1,6 +1,6 @@
 {
   "name": "krypto.cash",
-  "version": "1.1.1",
+  "version": "1.1.3",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -28,6 +28,8 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
+    "@firebase/app": "^0.1.2",
+    "@firebase/database": "^0.1.3",
     "ganalytics": "^2.0.1",
     "idb": "^2.0.4",
     "preact": "^8.2.6",

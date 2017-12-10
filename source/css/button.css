@@ -43,3 +43,16 @@ button, input[type="submit"] {
   background-color: #FF3A35;
   margin-top: 1.25rem;
 }
+
+.button-group {
+  margin: 1rem 0;
+}
+.button-group .button {
+  flex-basis: 45%;
+  flex-grow: 1;
+  margin-top: 0;
+}
+
+.button-group .small {
+  margin: 0 .5rem;
+}

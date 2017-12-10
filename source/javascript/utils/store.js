@@ -25,6 +25,16 @@ const store = {
   },
 
   add(item) {
+    if (Array.isArray(item)) {
+      item.forEach(i => this._add(i));
+    } else {
+      this._add(item);
+    }
+
+    this._update();
+  },
+
+  _add(item) {
     if (this.state.wallet.length < 1) {
       dbStore.setExtra('nativeCurrency', item.nativeCurrency);
       this.state.nativeCurrency = item.nativeCurrency;
@@ -32,10 +42,8 @@ const store = {
     dbStore.setItem(item);
     item.id = this.state.wallet.length + 1;
     this.state.wallet = [...this.state.wallet, item];
-    
-    this._update();
   },
-  
+
   delete(item) {
     const wallet = this.state.wallet.slice();
     const idx = wallet.indexOf(item);

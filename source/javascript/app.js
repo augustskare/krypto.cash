@@ -6,6 +6,7 @@ import store from './utils/store';
 import Home from './views/Home';
 
 const About = () => import(/* webpackChunkName: 'about' */ './views/About').then(module => module.default);
+const Sync = () => import(/* webpackChunkName: 'sync' */ './views/Sync').then(module => module.default);
 const Transaction = () =>  import(/* webpackChunkName: 'transaction' */ './views/Transaction').then(module => module.default);
 const Loading = () => <p class="text">Loading...</p>;;
 
@@ -38,6 +39,7 @@ class App extends Component {
             <Home path="/" wallet={state.wallet} rates={state.rates} nativeCurrency={state.nativeCurrency} />
             <AsyncRoute path="/transaction" nativeCurrency={state.nativeCurrency} getComponent={Transaction} loading={Loading} />
             <AsyncRoute path="/about" getComponent={About} loading={Loading} />
+            <AsyncRoute path="/sync" wallet={state.wallet} getComponent={Sync} loading={Loading} />
           </Router>
         </div>
       </div>

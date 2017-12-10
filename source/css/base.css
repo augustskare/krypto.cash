@@ -58,3 +58,21 @@ body {
   white-space: nowrap;
   width: 1px;
 }
+
+/* quic fix */
+
+.temp {
+  overflow: hidden;
+}
+.temp dd, .temp dt {
+  float: left;
+}
+
+.temp dt:after {
+  content: ":";
+  padding-right: 1ch;
+}
+
+.temp > div {
+  clear: both;
+}

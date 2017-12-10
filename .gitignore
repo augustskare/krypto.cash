@@ -3,3 +3,4 @@ public
 .DS_Store
 .firebaserc
 firebase.json
+firebase-config.json
