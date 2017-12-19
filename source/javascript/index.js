@@ -26,12 +26,9 @@ if (PRODUCTION) {
 	window.addEventListener('load', () => {
 		if (navigator.serviceWorker) { runtime.register(); }
 
-		import(/* webpackChunkName: 'ganalytics' */ 'ganalytics')
-			.then(module => module.default).then(GAnalytics => {
-				new GAnalytics('UA-109745092-1', { 
-					aip: 1,
-					av: VERSION
-				}).send('pageview');
-			});
+		import(/* webpackChunkName: 'ganalytics' */ 'ganalytics').then(module => {
+			const GAnalytics = module.default;
+			new GAnalytics('UA-109745092-1', { aip: 1 });
+		});
 	});
 }
