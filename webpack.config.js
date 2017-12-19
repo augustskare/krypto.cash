@@ -94,7 +94,7 @@ module.exports = (env) => {
       overlay: true,
       historyApiFallback: true,
       disableHostCheck: true,
-      useLocalIp: true
+      useLocalIp: true,
     },
     devtool: ENV === 'prod' ? 'source-map' : 'cheap-module-eval-source-map',
     plugins: ([
@@ -131,6 +131,7 @@ module.exports = (env) => {
         PRODUCTION: JSON.stringify(ENV==='prod'),
         VERSION: JSON.stringify(VERSION),
         STRIPE_API_KEY: JSON.stringify(ENV === 'prod' ? 'pk_live_NLjdwuBQDHVBWxp2vFkU4R3q' : 'pk_test_2V6L1LQDF85u3yQsLSQ9f69z'),
+        PAYMENT_URL: JSON.stringify(ENV === 'prod' ? 'https://e3fg7yfkd4.execute-api.us-east-1.amazonaws.com/prod/payment' : 'https://bjx84jln04.execute-api.us-east-1.amazonaws.com/dev/payment'),
       }),
       new CleanWebpackPlugin(['public']),
       new webpack.NamedModulesPlugin(),
