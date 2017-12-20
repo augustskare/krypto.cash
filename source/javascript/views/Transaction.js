@@ -69,6 +69,7 @@ class Transaction extends Component {
             <Select label="Currency" name="currency" value={state.currency} onChange={this.handleChange}>
               <option value="ETH">ETH</option>
               <option value="BTC">BTC</option>
+              <option value="BCH">BCH</option>
               <option value="LTC">LTC</option>
             </Select>
           </div>

@@ -66,7 +66,7 @@ const ratesService = {
 
   get() {
     return Promise.all([ 
-      fetch(`${this.url}BTC`), fetch(`${this.url}ETH`), fetch(`${this.url}LTC`) 
+      fetch(`${this.url}BTC`), fetch(`${this.url}ETH`), fetch(`${this.url}LTC`), fetch(`${this.url}BCH`), 
     ]).then(resp => Promise.all(resp.map(r => r.json()))).then(resp => {
       const rates = { timestamp: new Date() };
       resp.forEach(({data}) => rates[data.currency] = data.rates);
