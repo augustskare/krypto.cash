@@ -2,7 +2,7 @@
   "name": "krypto.cash",
   "description": "Helps you figure out how your cryptocurrency investments are actually doing",
   "homepage": "https://www.krypto.cash",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "main": "index.js",
   "license": "MIT",
   "babel": {
