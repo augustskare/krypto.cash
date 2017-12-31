@@ -1,4 +1,6 @@
 import {h, Component} from 'preact';
+
+import Button from './button';
 import {paymentService, STRIPE_CONFIG} from '../utils/paymentService';
 
 class DonationButton extends Component {
@@ -32,11 +34,7 @@ class DonationButton extends Component {
   render({amount}, {disabled = true, ...state}) {
     const label = state.label || `Donate $${amount / 100}`;
 
-    return (
-      <button class="button button--main button--default" type="button" disabled={disabled} onClick={() => this.StripeHandler.open({ amount })}>
-        {label}
-      </button>
-    )
+    return <Button disabled={disabled} onClick={() => this.StripeHandler.open({ amount })}>{label}</Button>
   }
 }
 

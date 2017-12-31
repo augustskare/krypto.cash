@@ -3,7 +3,8 @@ import firebase from '@firebase/app';
 import '@firebase/database';
 import firebaseConfig from '../../../firebase-config';
 
-import {Input} from '../components/Inputs';
+import Button from '../components/button';
+import {Input} from '../components/inputs';
 import store from '../utils/store';
 
 if (firebase.apps.length < 1) {
@@ -120,7 +121,7 @@ class Sync extends Component {
     return (
       <div class="content">
         <div class="heading">
-          <h2 class="heading__title">Data sync</h2>
+          <h2>Data sync</h2>
         </div>
 
         { state.connectionType === undefined && (
@@ -128,9 +129,9 @@ class Sync extends Component {
             <p>Data sync lets you sync data between devices. Set up a new connection on the device you want to transfer from, and use the connection code on your second device to establish a connection.</p>
             
             <div class="button-group grid">
-              <button class="button button--default button--main" type="button" onClick={this.handleNewConnection}>New connection</button>
+              <Button onClick={this.handleNewConnection}>New connection</Button>
               <span class="small">or</span>
-              <button class="button button--default button--main" type="button" onClick={this.handleConnect}>Connect</button>
+              <Button onClick={this.handleConnect}>Connect</Button>
             </div>
 
             <p>Your data is synced over a peer to peer connection, and never stored on any server.</p>
@@ -150,7 +151,7 @@ class Sync extends Component {
               </div>
             </dl>
             { state.connected && !state.syncComplete && (
-              <button type="button" class="button button--default button--main" onClick={this.handleSync}>Sync {props.wallet.length} {props.wallet.length > 1 ? 'items' : 'item' }</button>
+              <Button onClick={this.handleSync}>Sync {props.wallet.length} {props.wallet.length > 1 ? 'items' : 'item' }</Button>
             )}
             { state.syncComplete && <p>{props.wallet.length} {props.wallet.length > 1 ? 'items' : 'item' } synced</p>}
           </div>
@@ -162,7 +163,7 @@ class Sync extends Component {
             { state.connected === undefined ? (
               <form onSubmit={this.handleSubmit}>
                 <Input label="Connection ID" id="connecttionID" type="text" required />
-                <input class="button button--default button--main" type="submit" value="Connect"/>
+                <Button type="submit">Connect</Button>
               </form>
             ) : (
               <div>

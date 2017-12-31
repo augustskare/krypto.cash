@@ -1,6 +1,11 @@
 import {h, Component} from 'preact';
-import {Input, Select, Radio} from '../components/Inputs';
+import {Input, Select, InputGroup, Switch, InputAside} from '../components/inputs';
+import Notice from '../components/notice';
+import Button from '../components/button';
 import store from '../utils/store';
+
+const CRYPTOCURRENCIES = ['ETH', 'BTC', 'BCH', 'LTC'];
+const NATIVE_CURRENIES = ['USD', 'EUR', 'NOK'];
 
 class Transaction extends Component {
   constructor() {
@@ -11,8 +16,8 @@ class Transaction extends Component {
 
     this.state = {
       transactionType: 'bought',
-      nativeCurrency: 'USD',
-      currency: 'ETH',
+      nativeCurrency: NATIVE_CURRENIES[0],
+      currency: CRYPTOCURRENCIES[0],
     }
   }
 
@@ -37,46 +42,35 @@ class Transaction extends Component {
   render(props, state) {
     return (
       <div class="content">
-        { state.added ? <p class="notice">Item added</p> : null }
+        <Notice show={state.added} />
 
         <form class="form" onSubmit={this.handleSubmit}>
           <div class="heading grid">
             <header>
-              <h2 class="heading__title">Add transaction</h2>
+              <h2>Add transaction</h2>
             </header>
     
-            <div class="switch">
-              <Radio label="Bought" id="bought" name="transactionType" onChange={this.handleChange} checked={state.transactionType === 'bought'} />
-              <Radio label="Sold" id="sold" name="transactionType" onChange={this.handleChange} checked={state.transactionType === 'sold'} />
-            </div>
+            <Switch options={['Bought', 'Sold']} name="transactionType" selected={state.transactionType} onChange={this.handleChange}/>
           </div>
           
-          <div class="input-group">
+          <InputGroup>
             <Input label="Total price" id="price" value={state.price} onChange={this.handleChange} required />
-            <Select label="Native currency" name="nativeCurrency" disabled={props.nativeCurrency !== undefined} onChange={this.handleChange} value={props.nativeCurrency || state.nativeCurrency}>
-              <option value="USD">USD</option>
-              <option value="EUR">EUR</option>
-              <option value="NOK">NOK</option>
-            </Select>
-          </div>
+            <Select label="Native currency" name="nativeCurrency" options={NATIVE_CURRENIES} disabled={props.nativeCurrency !== undefined} onChange={this.handleChange} value={props.nativeCurrency || state.nativeCurrency} />
+          </InputGroup>
           
-          <div class="input-group">
+          <InputGroup>
             <Input label="Purchase fee" id="fee" value={state.fee} onChange={this.handleChange} />
-            <span class="input__aside input">%</span>
-          </div>
-          <div class="input-group">
+            <InputAside>%</InputAside>
+          </InputGroup>
+
+          <InputGroup>
             <Input label="Amount" id="amount" value={state.amount} onChange={this.handleChange} required />
-            <Select label="Currency" name="currency" value={state.currency} onChange={this.handleChange}>
-              <option value="ETH">ETH</option>
-              <option value="BTC">BTC</option>
-              <option value="BCH">BCH</option>
-              <option value="LTC">LTC</option>
-            </Select>
-          </div>
+            <Select label="Currency" name="currency" options={CRYPTOCURRENCIES} onChange={this.handleChange} value={state.currency} />
+          </InputGroup>
     
           <div class="grid">
             <span />
-            <input class="button button--default button--main" disabled={state.loading} type="submit" value="Add transaction"/>
+            <Button type="submit" disabled={state.loading}>Add transaction</Button>
           </div>
         </form>
       </div>

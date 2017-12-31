@@ -1,48 +1,50 @@
 import {h, Component} from 'preact';
 import Router from 'preact-router';
-import AsyncRoute from 'preact-async-route';
 
 import store from './utils/store';
-import Home from './views/Home';
+import Layout from './views/Layout';
+import View from './components/View';
 
-const About = () => import(/* webpackChunkName: 'about' */ './views/About').then(module => module.default);
-const Sync = () => import(/* webpackChunkName: 'sync' */ './views/Sync').then(module => module.default);
-const Transaction = () =>  import(/* webpackChunkName: 'transaction' */ './views/Transaction').then(module => module.default);
-const Loading = () => <p class="text">Loading...</p>;;
+const Home = () => import(/* webpackChunkName: 'home' */ './views/Home');
+const About = () => import(/* webpackChunkName: 'about' */ './views/About')
+const Sync = () => import(/* webpackChunkName: 'sync' */ './views/Sync');
+const Transaction = () =>  import(/* webpackChunkName: 'transaction' */ './views/Transaction');
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.handleRouteChange = this.handleRouteChange.bind(this);
+  }
+  
   componentDidMount() {
     store.subscribe(state => this.setState(state));
     store.init();
 
-    this._persistStorage();
+    if (PRODUCTION) {
+      import(/* webpackChunkName: 'ganalytics' */ 'ganalytics').then(module => {
+        const GAnalytics = module.default;
+        this.ga = new GAnalytics('UA-109745092-1', { aip: 1 });
+      });
+    }
   }
 
-  _persistStorage() {
-    if (navigator.storage && navigator.storage.persist) {
-      navigator.storage.persisted().then(persistent => {
-        if (!persistent) { navigator.storage.persist() }
-      });
+  handleRouteChange({url}) {
+    if (this.ga !== undefined) {
+      ga.send('pageview', { dl: url });
     }
   }
 
   render(props, state) {
     return (
-      <div>
-        <header class="site-header small">
-          <div class="site-header__inner wrap content">
-            <h1><a href="/">Krypto.cash</a></h1>
-          </div>
-        </header>
-        <div class="wrap">
-          <Router>
-            <Home path="/" wallet={state.wallet} rates={state.rates} nativeCurrency={state.nativeCurrency} />
-            <AsyncRoute path="/transaction" nativeCurrency={state.nativeCurrency} getComponent={Transaction} loading={Loading} />
-            <AsyncRoute path="/about" getComponent={About} loading={Loading} />
-            <AsyncRoute path="/sync" wallet={state.wallet} getComponent={Sync} loading={Loading} />
-          </Router>
-        </div>
-      </div>
+      <Layout>
+        <Router onChange={this.handleRouteChange}>
+          <View path="/" component={Home} wallet={state.wallet} rates={state.rates} nativeCurrency={state.nativeCurrency} />
+          <View path="/transaction" component={Transaction} nativeCurrency={state.nativeCurrency}  />
+          <View path="/about" component={About} />
+          <View path="/sync" component={Sync} wallet={state.wallet} />
+        </Router>
+      </Layout>
     )
   }
 }

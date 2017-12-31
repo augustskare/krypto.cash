@@ -1,26 +1,25 @@
-.navigation {
+.base {
   margin-bottom: 1.25rem;
 }
 
-.navigation__list {
+.list {
   font-size: 1.1rem;
   padding: 0;
   margin: 0;
   list-style: none;
-
 }
 
-.navigation__list-item {
-  color: #FF3A35;
+.item {
   padding: 0 1.25rem;
 }
 
-.navigation__list-link {
+.link {
+  text-decoration: none;
   border-bottom: 1px solid rgba(66,66,66, .1);
   padding: .75rem .25rem .5rem;
   display: block;
 }
 
-.navigation__list-link:hover {
+.link:hover {
   border-bottom-color: currentColor;
 }

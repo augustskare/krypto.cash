@@ -1,4 +1,4 @@
-.table {
+.base {
   text-align: left;
   border-collapse: collapse;
   border-spacing: 0;
@@ -7,24 +7,24 @@
   width: 100%;
 }
 
-.table__first {
+.first {
   width: 40%;
   padding-left: 1.25rem;
 
 }
-.table__last {
+.last {
   width: .9rem;
   padding-right: 1.25rem;
 }
 
-.table-body__item {
+.bodyItem {
   padding-top: 1rem;
   padding-bottom: 1rem;
   position: relative;
   border-bottom: 1px solid rgba(66,66,66, .1);
 }
 
-.table-header__item {
+.headerItem {
   font-weight: 500;
   background-color: rgba(66,66,66, .02);
   border-top: 1px solid rgba(66,66,66, .1);
@@ -35,7 +35,7 @@
 }
 
 @media (min-width: 34.375em) {
-  .table { 
+  .base { 
     border-left: 1px solid rgba(66,66,66, .1);
     border-right: 1px solid rgba(66,66,66, .1);
   }

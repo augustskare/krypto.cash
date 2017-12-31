@@ -1,4 +1,4 @@
-.input-group {
+.inputGroup {
   margin-bottom: 2.375rem;
   display: flex;
   align-items: flex-end;
@@ -17,16 +17,17 @@
   padding-bottom: .625rem;
   padding-left: 0;
 }
+
 .input:focus {
   outline: 0;
   border-bottom-color: rgba(66,66,66, .5);
 }
 
-.number-input {
+.numberInput {
   flex-grow: 1;
 }
 
-.number-input__field {
+.numberInputField {
   font-size: 1.15rem;
   box-shadow: none;
   width: 100%;
@@ -36,16 +37,16 @@
   z-index: 2;
 }
 
-.number-input__field::placeholder {
+.numberInputField::placeholder {
   color: rgba(66,66,66, .75);
 }
 
-.input__aside {
+.inputAside {
   font-size: 1rem;
   color: rgba(66,66,66, .4);
 }
 
-.select__field {
+.select {
   font-size: 1em;
   font-weight: inherit;
   color: inherit;
@@ -55,15 +56,15 @@
   -moz-appearance: none;
 }
 
-.select__field:disabled {
+.select:disabled {
   padding-right: 0;
 }
 
-.select__field:disabled ~ .select__icon {
+.select:disabled ~ .selectIcon {
   display: none;
 }
 
-.select__icon {
+.selectIcon {
   margin-top: 1px;
   transform: translateY(-50%);
   position: absolute;
@@ -81,11 +82,11 @@
   position: relative;
 }
 
-.switch__toggle {
+.switchToggle {
   width: 50%;
 }
 
-.switch__indicator {
+.switchIndicator {
   background-color: rgb(66,66,66);
   border-radius: 100%;
   width: .5rem;
@@ -95,7 +96,7 @@
   margin: 3px;
 }
 
-.switch__label {
+.switchLabel {
   text-align: right;
   font-size: .75rem;
   font-weight: 500;
@@ -108,6 +109,6 @@
   opacity: 0;
 }
 
-.switch__input:checked ~ .switch__indicator, .switch__input:checked ~ .switch__label  {
+.switchInput:checked ~ .switchIndicator, .switchInput:checked ~ .switchLabel  {
   opacity: .4;
 }

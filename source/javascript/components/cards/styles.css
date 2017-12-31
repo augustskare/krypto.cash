@@ -1,4 +1,4 @@
-.cards {
+.base {
   font-size: 0;
   padding-left: 1.25rem;
   padding-right: 1.25rem;
@@ -30,7 +30,7 @@
   margin-left: .625rem;
 }
 
-.card__body {
+.body {
   width: 100%;
   height: 100%;
   display: flex;
@@ -41,19 +41,19 @@
   left: 0;
 }
 
-.card__content {
+.content {
   display: flex;
   flex-direction: column-reverse;
 }
 
-.card__title {
+.value {
   font-size: 2.5rem;
   margin-bottom: .5rem;
 }
 
 
 @media (min-width: 34.375em) {
-  .cards {
+  .base {
     overflow-y: auto;
     padding-left: 0;
     padding-right: 0;
@@ -73,7 +73,7 @@
     display: flex;
   }
 
-  .card__body {
+  .body {
     width: auto;
     height: auto;
     display: flex;

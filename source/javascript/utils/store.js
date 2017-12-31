@@ -36,8 +36,7 @@ const store = {
 
   _add(item) {
     if (this.state.wallet.length < 1) {
-      dbStore.setExtra('nativeCurrency', item.nativeCurrency);
-      this.state.nativeCurrency = item.nativeCurrency;
+      this.initialItem(item.nativeCurrency);
     }
     dbStore.setItem(item);
     item.id = this.state.wallet.length + 1;
@@ -59,6 +58,17 @@ const store = {
   _update() {
     this.subscriber(this.state);
   },
+
+  initialItem(nativeCurrency) {
+    dbStore.setExtra('nativeCurrency', nativeCurrency);
+    this.state.nativeCurrency = nativeCurrency;
+
+    if (navigator.storage && navigator.storage.persist) {
+      navigator.storage.persisted().then(persistent => {
+        if (!persistent) { navigator.storage.persist() }
+      });
+    }
+  }
 }
 
 const ratesService = {

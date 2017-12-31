@@ -7,6 +7,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+const generateScopedName = require('./helpers/generateScopedName');
 
 module.exports = (env) => {
   const ENV = (env && env.env) || 'dev';
@@ -29,9 +31,6 @@ module.exports = (env) => {
       reasons: true,
     },
     resolve: {
-      alias: {
-        css: path.resolve(__dirname, 'source/css'),
-      },
       extensions: ['.js', '.json', '.css'],
     },
     module: {
@@ -39,40 +38,21 @@ module.exports = (env) => {
         {
           test: /\.js$/,
           exclude: [/(node_modules)/, /sw.js/],
-          use: [{
-            loader: 'babel-loader',
-            options: {
-              babelrc: false,
-              presets: [
-                [
-                  'env', 
-                  { 
-                    'targets': { 
-                      browsers: ['last 2 versions', 'not ie >= 10', 'not ExplorerMobile >= 10'] 
-                    } 
-                  }
-                ],
-              ],
-              plugins: [
-                'transform-object-rest-spread',
-                ['transform-react-jsx', { 'pragma': 'h' }],
-                'syntax-dynamic-import',
-              ]
-            }
-          }]
+          use: 'babel-loader',
         },
         {
           test: /\.css$/,
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
-            use: [
-              {
-                loader: 'css-loader',
-                options: {
-                  sourceMap: true,
-                }
+            use: [{
+              loader: 'css-loader',
+              options: {
+                sourceMap: ENV !== 'prod',
+                minimize: ENV === 'prod',
+                modules: true,
+                getLocalIdent: generateScopedName,
               }
-            ]
+            }]
           })
         },
         {
@@ -99,9 +79,12 @@ module.exports = (env) => {
     devtool: ENV === 'prod' ? 'source-map' : 'cheap-module-eval-source-map',
     plugins: ([
       new HtmlWebpackPlugin({
+        title: 'Krypto.cash',
+        pkg,
         template: path.join(__dirname, 'source/index.html'),
-        minify: { collapseWhitespace: false },
+        minify: { collapseWhitespace: true },
         excludeChunks: ['sw'],
+        inlineSource: '.css$',
       }),
       new ExtractTextPlugin({
         filename: '[name].[chunkhash].css',
@@ -140,7 +123,8 @@ module.exports = (env) => {
       new webpack.HashedModuleIdsPlugin(),
       new UglifyJSPlugin({
         sourceMap: true
-      })
+      }),
+      new HtmlWebpackInlineSourcePlugin(),
     ] : [
       new webpack.HotModuleReplacementPlugin(),
     ])
