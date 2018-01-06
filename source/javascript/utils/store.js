@@ -109,7 +109,8 @@ const ratesService = {
             let d = data[0];
             rates[d.symbol] = parseFloat(d[`price_${nativeCurrency.toLowerCase()}`]);
           } else {
-            rates[data.currency] = parseFloat(data.data.rates[nativeCurrency]);
+            let d = data.data;
+            rates[d.currency] = parseFloat(d.rates[nativeCurrency]);
           }
         });
 
