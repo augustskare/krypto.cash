@@ -4,7 +4,7 @@ import Notice from '../components/notice';
 import Button from '../components/button';
 import store from '../utils/store';
 
-const CRYPTOCURRENCIES = ['ETH', 'BTC', 'BCH', 'LTC'];
+const CRYPTOCURRENCIES = ['ETH', 'BTC', 'BCH', 'LTC', 'ZRX', 'RXP'];
 const NATIVE_CURRENIES = ['USD', 'EUR', 'NOK'];
 
 class Transaction extends Component {

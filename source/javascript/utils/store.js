@@ -13,10 +13,7 @@ const store = {
     dbStore.initalGet().then(state => {
       this.state = Object.assign({}, this.state, state);
       this._update();
-      ratesService.get().then(rates => {
-        this.state.rates = rates;
-        this._update();
-      })
+      this._getRates();
     });
   },
     
@@ -41,6 +38,7 @@ const store = {
     dbStore.setItem(item);
     item.id = this.state.wallet.length + 1;
     this.state.wallet = [...this.state.wallet, item];
+    this._getRates();
   },
 
   delete(item) {
@@ -59,6 +57,15 @@ const store = {
     this.subscriber(this.state);
   },
 
+  _getRates() {
+    const currencies = this.state.wallet.map(i => i.currency).filter((i, p, w) => w.indexOf(i) == p);
+
+    ratesService.get(currencies, this.state.nativeCurrency).then(rates => {
+      this.state.rates = rates;
+      this._update();
+    });
+  },
+
   initialItem(nativeCurrency) {
     dbStore.setExtra('nativeCurrency', nativeCurrency);
     this.state.nativeCurrency = nativeCurrency;
@@ -71,17 +78,43 @@ const store = {
   }
 }
 
-const ratesService = {
-  url: 'https://api.coinbase.com/v2/exchange-rates?currency=',
 
-  get() {
-    return Promise.all([ 
-      fetch(`${this.url}BTC`), fetch(`${this.url}ETH`), fetch(`${this.url}LTC`), fetch(`${this.url}BCH`), 
-    ]).then(resp => Promise.all(resp.map(r => r.json()))).then(resp => {
-      const rates = { timestamp: new Date() };
-      resp.forEach(({data}) => rates[data.currency] = data.rates);
-      return dbStore.setExtra('rates', rates).then(() => rates);
-    });
+const currencyMap = {
+  RXP: 'ripple',
+  ZRX: '0x',
+}
+
+const coinbaseAPI = ['ETH', 'BTC', 'BCH', 'LTC'];
+
+const rateUrl = (currency, nativeCurrency) => {
+  if (coinbaseAPI.indexOf(currency) >= 0) {
+    return `https://api.coinbase.com/v2/exchange-rates?currency=${currency}`;
+  }
+  
+  return `https://api.coinmarketcap.com/v1/ticker/${currencyMap[currency]}/?convert=${nativeCurrency}`;
+}
+
+
+
+
+const ratesService = {
+  get(currencies, nativeCurrency) {
+    return Promise.all(currencies.map(c => fetch(rateUrl(c, nativeCurrency))))
+      .then(resp => Promise.all(resp.map(r => r.json())))
+      .then(resp => {
+        let rates = { timestamp: new Date() };
+
+        resp.forEach(data => {
+          if (Array.isArray(data)) {
+            let d = data[0];
+            rates[d.symbol] = parseFloat(d[`price_${nativeCurrency.toLowerCase()}`]);
+          } else {
+            rates[data.currency] = parseFloat(data.data.rates[nativeCurrency]);
+          }
+        });
+
+        return dbStore.setExtra('rates', rates).then(() => rates);
+      });
   }
 }
 

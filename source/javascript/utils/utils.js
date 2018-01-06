@@ -10,7 +10,7 @@ const getValues = ({wallet, rates, nativeCurrency}) => {
     if (Object.keys(rates).length) {
       wallet.forEach(item => {
         if (item.transactionType === 'bought') {
-          unrealized += (item.amount * rates[item.currency][nativeCurrency]);
+          unrealized += rates[item.currency] ? item.amount * rates[item.currency] : 0;
           bought += item.price;
         } else {
           unrealized -= item.price;
