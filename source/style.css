@@ -114,11 +114,6 @@ p, dd {
   margin: 0;
 }
 
-small {
-  margin-top: .2rem;
-  display: inline-block;
-}
-
 h1, h2 {
   font-weight: inherit;
   margin: 0;

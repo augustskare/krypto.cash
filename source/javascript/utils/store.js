@@ -59,9 +59,24 @@ const store = {
 
   _getRates() {
     const currencies = this.state.wallet.map(i => i.currency).filter((i, p, w) => w.indexOf(i) == p);
+    this.state.rates.meta = { loading: true };
+    this._update();
 
-    ratesService.get(currencies, this.state.nativeCurrency).then(rates => {
-      this.state.rates = rates;
+    ratesService.get(currencies, this.state.nativeCurrency, rates => {
+      let data = {};
+      let key = '';
+
+      if (rates !== 'all done') {
+        const {currency, price, timestamp} = rates; 
+        key = currency;
+        data = {price, timestamp};
+      } else {
+        key = 'meta';
+        data = {timestamp: new Date(), loading: false};
+      }
+
+      dbStore.setRate(key, data)
+      this.state.rates = Object.assign({}, this.state.rates, {[key]: data});
       this._update();
     });
   },
@@ -79,44 +94,52 @@ const store = {
 }
 
 
-const currencyMap = {
-  RXP: 'ripple',
-  ZRX: '0x',
-}
-
-const coinbaseAPI = ['ETH', 'BTC', 'BCH', 'LTC'];
-
-const rateUrl = (currency, nativeCurrency) => {
-  if (coinbaseAPI.indexOf(currency) >= 0) {
-    return `https://api.coinbase.com/v2/exchange-rates?currency=${currency}`;
-  }
-  
-  return `https://api.coinmarketcap.com/v1/ticker/${currencyMap[currency]}/?convert=${nativeCurrency}`;
-}
-
-
-
 
 const ratesService = {
-  get(currencies, nativeCurrency) {
-    return Promise.all(currencies.map(c => fetch(rateUrl(c, nativeCurrency))))
-      .then(resp => Promise.all(resp.map(r => r.json())))
-      .then(resp => {
-        let rates = { timestamp: new Date() };
+  useCoinbaseApi: ['ETH', 'BTC', 'BCH', 'LTC'],
+  coinmarketcapMap: {
+    RXP: 'ripple',
+    ZRX: '0x',
+  },
+  nativeCurrency: null,
 
-        resp.forEach(data => {
-          if (Array.isArray(data)) {
-            let d = data[0];
-            rates[d.symbol] = parseFloat(d[`price_${nativeCurrency.toLowerCase()}`]);
-          } else {
-            let d = data.data;
-            rates[d.currency] = parseFloat(d.rates[nativeCurrency]);
-          }
-        });
+  get(currencies, nativeCurrency, fn) {
+    this.nativeCurrency = nativeCurrency;
 
-        return dbStore.setExtra('rates', rates).then(() => rates);
-      });
-  }
+    const req = currencies.map(c => this._getData(c).then(fn))
+    Promise.all(req).then(e => fn('all done'));
+  },
+
+  _normalizeData(data, currency) {
+    return data.json().then(data => {
+      if (this.isCoinbase(currency)) {
+        let d = data.data;
+        return parseFloat(d.rates[this.nativeCurrency]);
+      } else {
+        let d = data[0];
+        return parseFloat(d[`price_${this.nativeCurrency.toLowerCase()}`]);
+      }
+    }).then(price => ({ currency, price, timestamp: new Date() }));
+  },
+
+  _getUrl(currency) {
+    if (this.isCoinbase(currency)) {
+      return `https://api.coinbase.com/v2/exchange-rates?currency=${currency}`;
+    }
+    
+    return `https://api.coinmarketcap.com/v1/ticker/${this.coinmarketcapMap[currency]}/?convert=${this.nativeCurrency}`;
+  },
+
+  _getData(currency) {
+    return fetch(this._getUrl(currency)).then(resp => this._normalizeData(resp, currency));
+  },
+
+  isCoinbase(currency) {
+    return this.useCoinbaseApi.includes(currency);
+  },
+
 }
+
+ratesService._getData = ratesService._getData.bind(ratesService);
 
 export default store;

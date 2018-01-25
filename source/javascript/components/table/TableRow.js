@@ -12,7 +12,7 @@ const TableRow = ({item, nativeCurrency, rates}) => {
   let perf = 0;
 
   if (rates[item.currency]) {
-    const currentPrice = item.amount * rates[item.currency];
+    const currentPrice = item.amount * rates[item.currency].price;
     const purchasePrice = item.price;
 
     perf = (currentPrice - purchasePrice) / purchasePrice;
